@@ -1,0 +1,17 @@
+{
+  "name": "function_sns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pong.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "serverless": "^3.24.1",
+    "serverless-offline": "^11.3.0",
+    "serverless-offline-sns": "^0.76.0"
+  }
+}
