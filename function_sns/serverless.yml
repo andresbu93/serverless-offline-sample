@@ -1,0 +1,28 @@
+service: sns
+
+plugins:
+  - serverless-offline-sns
+  - serverless-offline
+
+custom:
+  serverless-offline-sns:
+    port: 4002
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+functions:
+  ping:
+    handler: ./ping.ping
+    events:
+      - http:
+          path: /
+          method: get
+
+  pong:
+    handler: ./pong.pong
+    events:
+      - sns: test-topic

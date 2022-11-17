@@ -1,0 +1,19 @@
+service: invoker
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+functions:
+  function-1:
+    handler: ./function.default
+    events:
+      - http:
+          path: invoker
+          method: get
+          cors: true

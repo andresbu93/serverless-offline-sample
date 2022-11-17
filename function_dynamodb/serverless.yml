@@ -1,0 +1,52 @@
+service: dynamo
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    stages:
+      - offline
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      seed: true
+      migrate: true
+    seed:
+      domain:
+        sources:
+          - table: testTable
+            sources: [./.dynamodb/seed/testTable.json]
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'offline'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    TABLE_NAME: testTable
+
+resources:
+  Resources:
+    testTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: testTable
+        AttributeDefinitions:
+          - AttributeName: param1
+            AttributeType: S
+        KeySchema:
+          - AttributeName: param1
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+functions:
+  function:
+    handler: ./function.default
+    events:
+      - http:
+          path: /
+          method: get
