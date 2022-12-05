@@ -1,0 +1,9 @@
+plugins-offline: ${file(./offline.yml):plugins}
+
+plugins-prod:
+  - serverless-plugin-monorepo
+  - serverless-plugin-aws-alerts
+
+plugins-dev:
+  - serverless-plugin-monorepo
+  - serverless-plugin-aws-alerts

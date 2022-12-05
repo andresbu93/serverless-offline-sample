@@ -1,0 +1,1 @@
+custom-offline: ${file(./offline.yml):custom}
