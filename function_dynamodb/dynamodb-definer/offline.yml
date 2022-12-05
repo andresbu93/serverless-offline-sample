@@ -1,5 +1,3 @@
-service: dynamo
-
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
@@ -21,14 +19,6 @@ custom:
           - table: testTable
             sources: [./.dynamodb/seed/testTable.json]
 
-provider:
-  name: aws
-  runtime: nodejs16.x
-  stage: ${opt:stage, 'offline'}
-  region: ${opt:region, 'us-east-1'}
-  environment:
-    TABLE_NAME: testTable
-
 resources:
   Resources:
     testTable:
@@ -42,11 +32,3 @@ resources:
           - AttributeName: param1
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-
-functions:
-  function:
-    handler: ./function.default
-    events:
-      - http:
-          path: /
-          method: get
